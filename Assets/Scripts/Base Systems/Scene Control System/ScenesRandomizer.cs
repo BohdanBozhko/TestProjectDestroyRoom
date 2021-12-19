@@ -15,8 +15,6 @@ public class ScenesRandomizer : MonoBehaviour
         maxSceneCount = SceneManager.sceneCountInBuildSettings - 1;
         scenesNonRepeatCount = scenesNonRepeatCount >= maxSceneCount ? maxSceneCount - 1 : scenesNonRepeatCount;
 
-        print("LOL WHAT?");
-
         for (int i = 1; i < maxSceneCount+1; i++)
         {
             scenePool.Add(i);
@@ -55,7 +53,6 @@ public class ScenesRandomizer : MonoBehaviour
         }
         used.Add(returnedValue);
         actual.Remove(returnedValue);
-        print(returnedValue);
         return returnedValue;
     }
 

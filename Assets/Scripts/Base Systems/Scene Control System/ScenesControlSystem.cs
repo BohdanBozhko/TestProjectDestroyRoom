@@ -29,11 +29,6 @@ public class ScenesControlSystem : MonoSingleton<ScenesControlSystem>
         DontDestroyOnLoad(this);
     }
 
-    private void OnDisable()
-    {
-        GameManager.Instance.OnLevelLoadingTriggered -= GameManager_LevelLoadingTriggered;
-    }
-
     private void Start()
     {
         OnLevelLoaded?.Invoke();
