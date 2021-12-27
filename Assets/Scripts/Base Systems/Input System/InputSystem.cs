@@ -4,13 +4,20 @@ using UnityEngine;
 using System;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// This system will read input from the UI panel to which it's attached (make sure this panel not covered by another).
+/// </summary>
 public class InputSystem : MonoSingleton<InputSystem>, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
 	public enum SwipeDirection { Up, Down, Right, Left }
 
+	[SerializeField] FloatingJoystick joystick;
+
 	private Camera mainCamera;
 	private Vector3 startTouchPosition;
 	private Vector3 endTouchPosition;
+
+	public FloatingJoystick Joystick => joystick;
 
 	public Camera MainCamera
 	{
@@ -56,7 +63,7 @@ public class InputSystem : MonoSingleton<InputSystem>, IPointerDownHandler, IPoi
 
 	private void GetSwipePoints(ref Vector3 point)
 	{
-		point = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.nearClipPlane));
+		point = MainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.nearClipPlane));
 	}
 
 	public void Swipe()

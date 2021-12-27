@@ -1,53 +1,39 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
-public class LevelUI : MonoBehaviour
+public class LevelUI : AbstractAnimatedCanvas
 {
-    [SerializeField] private Canvas levelUI;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI objectsCountText;
     [SerializeField] private Button restartButton;
+    [SerializeField] private int maxInteractionObjectsCount;
+    [SerializeField] private int interactionObjectCount;
+    [SerializeField] private ParticleSystem interactionVfx;
 
-    private void Start()
-    {
-        SetObjectCountText(0, 10);
-        Subscribe(true);
-    }
+    public int Level;
+
 
     private void OnDisable()
     {
-        Subscribe(false);
+        LevelController.Instance.OnObjectsCountChanged -= LevelController_ObjectsCountChanged;
+        restartButton.onClick.RemoveListener(Restart);
     }
 
-    private void Subscribe(bool subscribe)
+    public void LevelUpdate(int level, int maxObjectCount)
     {
-        if (subscribe)
-        {
-            GameManager.Instance.OnInit += GameManager_Init;
-            GameManager.Instance.OnLevelLoadingComplete += GameManager_LevelLoadingComplete;
-            //LevelController.Instance.OnObjectsCountChanged += LevelController_ObjectsCountChanged;
-        }
-        else
-        {
-            GameManager.Instance.OnInit -= GameManager_Init;
-            GameManager.Instance.OnLevelLoadingComplete -= GameManager_LevelLoadingComplete;
-        }
-    }
-
-    public void Show(bool show)
-    {
-        levelUI.enabled = show;
-    }
-
-    private void GameManager_LevelLoadingComplete(int level)
-    {
+        restartButton.onClick.AddListener(Restart);
+        LevelController.Instance.OnObjectsCountChanged += LevelController_ObjectsCountChanged;
+        SetMaxObjectCount(maxObjectCount);
+        SetObjectCountText(0);
         SetLevelText(level);
     }
 
-    private void GameManager_Init()
+    private void LevelController_ObjectsCountChanged()
     {
-        restartButton.onClick.AddListener(Restart);
+        interactionObjectCount++;
+        SetObjectCountText(interactionObjectCount);
     }
 
     private void Restart()
@@ -60,8 +46,14 @@ public class LevelUI : MonoBehaviour
         levelText.text = $"Level {level}";
     }
 
-    private void SetObjectCountText(int brokenObjectsCount, int maxObjectsCount)
+    private void SetObjectCountText(int brokenObjectsCount)
     {
-        objectsCountText.text = $"{brokenObjectsCount}/{maxObjectsCount}"; 
+        interactionVfx.Play();
+        objectsCountText.text = $"{brokenObjectsCount}/{maxInteractionObjectsCount}"; 
+    }
+
+    private void SetMaxObjectCount(int maxObjectCount)
+    {
+        maxInteractionObjectsCount = maxObjectCount;
     }
 }

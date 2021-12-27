@@ -5,10 +5,12 @@ using System;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    public event Action OnInit;
+    public event Action<int> OnInit;
     public event Action<bool> OnLevelEnd;
     public event Action<int> OnLevelLoadingComplete;
     public event Action<int> OnLevelLoadingTriggered;
+
+    public int levelNumber;
 
     private void Start()
     {
@@ -16,6 +18,12 @@ public class GameManager : MonoSingleton<GameManager>
         Application.targetFrameRate = 60;
         DontDestroyOnLoad(this);
         StartCoroutine(InitLevelRoutine());
+    }
+
+
+    private void OnDestroy()
+    {
+        SCS.Loader.OnLevelLoaded -= SCS_LevelLoaded;
     }
 
 #if UNITY_EDITOR
@@ -42,13 +50,13 @@ public class GameManager : MonoSingleton<GameManager>
 
     private void SCS_LevelLoaded()
     {
-        int levelNumber = SLS.Data.gameLevel;
+        levelNumber = SLS.Data.gameLevel;
         OnLevelLoadingComplete?.Invoke(levelNumber);
     }
 
     private void LoadLevel()
     {
-        var levelNumber = SLS.Data.gameLevel;
+        levelNumber = SLS.Data.gameLevel;
         OnLevelLoadingTriggered?.Invoke(levelNumber);
     }
 
@@ -60,7 +68,7 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
 
-    private void LevelEnd(bool win)
+    public void LevelEnd(bool win)
     {
         OnLevelEnd?.Invoke(win);
     }
@@ -82,7 +90,7 @@ public class GameManager : MonoSingleton<GameManager>
     {
         //Skip one frame to make new lifecycle "Init" after Start method
         yield return new WaitForEndOfFrame();
-        OnInit?.Invoke();
+        OnInit?.Invoke(levelNumber);
         LoadLevel();
     }
 }

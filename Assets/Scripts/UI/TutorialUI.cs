@@ -4,13 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TutorialUI : MonoBehaviour
+public class TutorialUI : AbstractAnimatedCanvas
 {
-    private Canvas tutorialUI;
-
     private void OnValidate()
     {
-        tutorialUI = GetComponent<Canvas>();
+        canvas = GetComponent<Canvas>();
     }
 
     private void Start()
@@ -27,29 +25,21 @@ public class TutorialUI : MonoBehaviour
     {
         if (subscribe)
         {
-            GameManager.Instance.OnLevelLoadingComplete += GameManager_LevelLoadingComplete;
             InputSystem.Instance.OnTouch += InputSystem_Touch;
         }   
         else
         {
-            GameManager.Instance.OnLevelLoadingComplete -= GameManager_LevelLoadingComplete;
+            InputSystem.Instance.OnTouch -= InputSystem_Touch;
         }
     }
 
     private void InputSystem_Touch()
     {
-        Show(false);
+        Hide();
     }
 
-    private void GameManager_LevelLoadingComplete(int level)
-    {
-        Show(true);
-    }
+ 
 
-    public void Show(bool show)
-    {
-        tutorialUI.enabled = show;
-    }
 
 
 

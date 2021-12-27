@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     private bool canMove;
     private bool inAir;
 
+    public bool CanMove { get => canMove; set => canMove = value; }
+
     private void OnValidate()
     {
         characterController = GetComponent<CharacterController>();
@@ -30,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(Vector3 input, bool jump = false)
     {
-        canMove = true;
+        CanMove = true;
         ApplyRotating(input);
         ApplyGravity();
         ApplyJumping(jump);
@@ -39,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     //Move character by Root Motion
     private void OnAnimatorMove()
     {
-        if (canMove == false) return;
+        if (CanMove == false) return;
         Vector3 velocity = animator.deltaPosition;
         velocity.y = heightSpeed * Time.deltaTime;
         characterController.Move(velocity);
@@ -52,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyJumping(bool jump)
     {
-        Debug.LogError(characterController.isGrounded);
         if (characterController.isGrounded)
         {
             //Make sure the player's collider stay on the ground
@@ -64,24 +65,31 @@ public class PlayerMovement : MonoBehaviour
                 OnJumpStatusChanged.Invoke(inAir);
             }
 
-            if (jump)
-            {
-                inAirTimer = 0.4f;
-                inAir = true;
-                OnJumpStatusChanged.Invoke(inAir);
-                heightSpeed = jumpSpeed;
-            }
+            if (jump) Jump();
         }
         else
         {
             inAirTimer -= Time.deltaTime;
+            PowerfulJump();
+        }
+    }
 
-            if (Input.GetMouseButtonDown(0) && inAirTimer <= 0)
-            {
-                inAir = false;
-                heightSpeed = downJumpSpeed;
-                OnPowerfulJump.Invoke();
-            }
+    private void Jump()
+    {
+        inAirTimer = 0.4f;
+        inAir = true;
+        heightSpeed = jumpSpeed;
+        OnJumpStatusChanged.Invoke(inAir);
+    }
+
+    private void PowerfulJump()
+    {
+        if (Input.GetMouseButtonDown(0) && inAirTimer <= 0)
+        {
+            inAir = false;
+            heightSpeed = downJumpSpeed;
+            OnPowerfulJump.Invoke();
+            CinemachineScreenShaker.Instance.ScreenShake(1.2f, 0.3f);
         }
     }
 

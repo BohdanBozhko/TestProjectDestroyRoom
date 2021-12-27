@@ -6,12 +6,15 @@ using UnityEngine;
 public class PlayerAnimator : MonoBehaviour
 {
     private Animator animator;
+    private bool move;
+    #region Hash id for animations
     private int Velocity;
     private int IsMove;
     private int Land;
     private int HardLand;
     private int Jump;
-    private bool move;
+    private int Kick;
+    #endregion
 
     private void OnValidate()
     {
@@ -26,6 +29,7 @@ public class PlayerAnimator : MonoBehaviour
         Land = Animator.StringToHash("Land");
         HardLand = Animator.StringToHash("HardLand");
         Jump = Animator.StringToHash("Jump");
+        Kick = Animator.StringToHash("Kick");
     }
 
     public void ChangeMoveAnimation(float normalizedVelocity)
@@ -38,12 +42,17 @@ public class PlayerAnimator : MonoBehaviour
 
     public void PlayerMovement_PowerfulJump()
     {
-        PlayHardLandingAnimation();
+        animator.SetTrigger(HardLand);
     }
 
     public void PlayerMovement_OnJumpStatusChanged(bool jump)
     {
         ChangeJumpAnimation(jump);
+    }
+
+    public void PlayerCollision_CollisionHappend()
+    {
+        animator.SetTrigger(Kick);
     }
 
     public void ChangeJumpAnimation(bool jump)
@@ -58,9 +67,5 @@ public class PlayerAnimator : MonoBehaviour
         }
     }
 
-    private void PlayHardLandingAnimation()
-    {
-        animator.SetTrigger(HardLand);
-    }
 
 }

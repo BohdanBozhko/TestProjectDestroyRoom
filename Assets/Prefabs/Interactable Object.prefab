@@ -49,9 +49,10 @@ MonoBehaviour:
   interactVfx: {fileID: 3898381652828209330}
   objCollider: {fileID: 8769801823504381145}
   meshRenderer: {fileID: 8769801823748268538}
-  delayToCloseInteract: 0.5
-  delayToDestroy: 0.2
   hitColor: {r: 1, g: 0.7688679, b: 0.7688679, a: 1}
+  delayToCloseInteract: 0.25
+  delayToDestroy: 0.2
+  delayToDistanceInteract: 0.2
 --- !u!65 &8769801823504381145
 BoxCollider:
   m_ObjectHideFlags: 0

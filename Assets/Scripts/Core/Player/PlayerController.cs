@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerAnimator playerAnimator;
     [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private PlayerInteractor playerInteractor;
+    [SerializeField] private PlayerVfx playerVfx;
 
 
     private void OnValidate()
@@ -15,6 +17,8 @@ public class PlayerController : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         playerAnimator = GetComponent<PlayerAnimator>();
         playerInput = GetComponent<PlayerInput>();
+        playerInteractor = GetComponent<PlayerInteractor>();
+        playerVfx = GetComponent<PlayerVfx>();
     }
 
     private void Start()
@@ -33,11 +37,18 @@ public class PlayerController : MonoBehaviour
         {
             playerMovement.OnJumpStatusChanged += playerAnimator.PlayerMovement_OnJumpStatusChanged;
             playerMovement.OnPowerfulJump += playerAnimator.PlayerMovement_PowerfulJump;
+            playerMovement.OnJumpStatusChanged += playerVfx.PlayerMovement_OnJumpStatusChanged;
+            playerMovement.OnPowerfulJump += playerVfx.PlayerMovement_PowerfulJump;
+            playerMovement.OnPowerfulJump += playerInteractor.PlayerMovement_PowerfulJump;
+            playerInteractor.OnCollisionHappend += playerAnimator.PlayerCollision_CollisionHappend;
         }
         else
         {
             playerMovement.OnJumpStatusChanged -= playerAnimator.PlayerMovement_OnJumpStatusChanged;
             playerMovement.OnPowerfulJump -= playerAnimator.PlayerMovement_PowerfulJump;
+            playerMovement.OnJumpStatusChanged -= playerVfx.PlayerMovement_OnJumpStatusChanged;
+            playerMovement.OnPowerfulJump -= playerVfx.PlayerMovement_PowerfulJump;
+            playerInteractor.OnCollisionHappend -= playerAnimator.PlayerCollision_CollisionHappend;
         }
     }
 
