@@ -48,7 +48,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -4775,7 +4775,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2540029766723456845}
-  - component: {fileID: 2540029766729442949}
   - component: {fileID: 2540029766737611277}
   - component: {fileID: 2540029766737720237}
   m_Layer: 0
@@ -4800,26 +4799,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2540029766729442949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2540029766723949421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79c859f5f7a87c8438b7a5e91d7f499e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Locked: 1
-  Title: PARTICLES COLLISION
-  HelpText: 'You must edit the Collision tab on the children''s Particle System Inspector
-    of this object to make the collisions work properly.
-
-    Relevant children to
-    edit have the COL prefix on their name.'
-  MsgType: 2
 --- !u!198 &2540029766737611277
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4836,7 +4815,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
