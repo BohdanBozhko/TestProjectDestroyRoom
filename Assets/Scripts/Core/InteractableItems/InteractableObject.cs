@@ -58,6 +58,7 @@ public class InteractableObject : MonoBehaviour, IInteractable
         transform.DOScale(hitScale, interactionTime).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutBounce);
 
         yield return new WaitForSeconds(delayToDestroy);
+        Taptic.Medium();
         DestroyObject();
     }
 
@@ -73,6 +74,7 @@ public class InteractableObject : MonoBehaviour, IInteractable
         interactionSequence.Append(meshRenderer.material.DOColor(hitColor, 0.1f).SetLoops(2, LoopType.Yoyo));
         
         yield return new WaitForSeconds(delayToDestroy);
+        Taptic.Light();
         DestroyObject();
     }
 

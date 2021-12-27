@@ -16,11 +16,13 @@ public class PlayerVfx : MonoBehaviour
 
     public void PlayerMovement_OnJumpStatusChanged(bool jump)
     {
+        Taptic.Light();
         jumpVfx.Play();
     }
 
     public void PlayerMovement_PowerfulJump()
     {
+        Taptic.Medium();
         landVfx.Play();
         landVfx.transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
         hitWaveVfx.Play();
