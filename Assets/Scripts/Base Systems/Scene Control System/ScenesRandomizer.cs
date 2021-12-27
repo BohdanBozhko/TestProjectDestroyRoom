@@ -21,6 +21,18 @@ public class ScenesRandomizer : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if(SLS.Data.SceneAvailablePool.Count > 0)
+        {
+            scenePool = SLS.Data.SceneAvailablePool;
+        }
+        if(SLS.Data.SceneUtiliziedPool.Count > 0)
+            {
+            sceneUtiliziedPool = SLS.Data.SceneUtiliziedPool;
+        }
+    }
+
     public int GetRandomSceneIndex()
     {
        return GetRandomValue<int>(ref scenePool, ref sceneUtiliziedPool, scenesNonRepeatCount);
@@ -53,6 +65,10 @@ public class ScenesRandomizer : MonoBehaviour
         }
         used.Add(returnedValue);
         actual.Remove(returnedValue);
+       
+        SLS.Data.SceneUtiliziedPool = sceneUtiliziedPool;
+        SLS.Data.SceneAvailablePool = scenePool;
+        
         return returnedValue;
     }
 

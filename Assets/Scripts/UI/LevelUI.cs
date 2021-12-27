@@ -7,7 +7,6 @@ public class LevelUI : AbstractAnimatedCanvas
 {
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI objectsCountText;
-    [SerializeField] private Button restartButton;
     [SerializeField] private int maxInteractionObjectsCount;
     [SerializeField] private int interactionObjectCount;
     [SerializeField] private ParticleSystem interactionVfx;
@@ -18,12 +17,10 @@ public class LevelUI : AbstractAnimatedCanvas
     private void OnDisable()
     {
         LevelController.Instance.OnObjectsCountChanged -= LevelController_ObjectsCountChanged;
-        restartButton.onClick.RemoveListener(Restart);
     }
 
     public void LevelUpdate(int level, int maxObjectCount)
     {
-        restartButton.onClick.AddListener(Restart);
         LevelController.Instance.OnObjectsCountChanged += LevelController_ObjectsCountChanged;
         SetMaxObjectCount(maxObjectCount);
         SetObjectCountText(0);
@@ -34,11 +31,6 @@ public class LevelUI : AbstractAnimatedCanvas
     {
         interactionObjectCount++;
         SetObjectCountText(interactionObjectCount);
-    }
-
-    private void Restart()
-    {
-        GameManager.Instance.RestartLevel();
     }
 
     private void SetLevelText(int level)
