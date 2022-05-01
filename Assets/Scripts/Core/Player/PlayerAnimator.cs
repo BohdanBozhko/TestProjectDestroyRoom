@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    private Animator animator;
+    [SerializeField] private Animator animator;
     private bool move;
     #region Hash id for animations
     private int Velocity;
@@ -15,12 +15,6 @@ public class PlayerAnimator : MonoBehaviour
     private int Jump;
     private int Kick;
     #endregion
-
-    private void OnValidate()
-    {
-        animator = GetComponent<Animator>();
-        if (animator == null) print("<color=red>Error:</color> animator was not found");
-    }
 
     private void Start()
     {
@@ -36,13 +30,13 @@ public class PlayerAnimator : MonoBehaviour
     {
         if (normalizedVelocity <= 0) move = false;
         else { move = true; }
-        animator.SetBool(IsMove, move);
-        animator.SetFloat(Velocity, normalizedVelocity, 0.1f, Time.deltaTime);
+        animator.SetBool("IsMove", move);
+        animator.SetFloat("Velocity", normalizedVelocity, 0.1f, Time.deltaTime);
     }
 
     public void PlayerMovement_PowerfulJump()
     {
-        animator.SetTrigger(HardLand);
+        animator.SetTrigger("HardLand");
     }
 
     public void PlayerMovement_OnJumpStatusChanged(bool jump)
@@ -52,18 +46,18 @@ public class PlayerAnimator : MonoBehaviour
 
     public void PlayerCollision_CollisionHappend()
     {
-        animator.SetTrigger(Kick);
+        animator.SetTrigger("Kick");
     }
 
     public void ChangeJumpAnimation(bool jump)
     {
         if (jump)
         {
-            animator.SetTrigger(Jump);
+            animator.SetTrigger("Jump");
         }
         else
         {
-            animator.SetTrigger(Land);
+            animator.SetTrigger("Land");
         }
     }
 

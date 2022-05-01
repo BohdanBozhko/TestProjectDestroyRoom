@@ -11,16 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerInteractor playerInteractor;
     [SerializeField] private PlayerVfx playerVfx;
 
-
-    private void OnValidate()
-    {
-        playerMovement = GetComponent<PlayerMovement>();
-        playerAnimator = GetComponent<PlayerAnimator>();
-        playerInput = GetComponent<PlayerInput>();
-        playerInteractor = GetComponent<PlayerInteractor>();
-        playerVfx = GetComponent<PlayerVfx>();
-    }
-
     private void Start()
     {
         Subscribe(true);

@@ -13,22 +13,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float rotationSpeed = 5;
     [SerializeField] private float jumpSpeed = 10;
     [SerializeField] private float downJumpSpeed = -50;
-
-    private CharacterController characterController;
-    private Animator animator;
+    [SerializeField] private CharacterController characterController;
+    [SerializeField] private Animator animator;
     private float heightSpeed;
     private float inAirTimer;
     private bool canMove;
     private bool inAir;
 
     public bool CanMove { get => canMove; set => canMove = value; }
-
-    private void OnValidate()
-    {
-        characterController = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
-        if (animator == null) print("<color=red>Error:</color> animator was not found");
-    }
 
     public void Move(Vector3 input, bool jump = false)
     {

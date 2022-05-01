@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 733149548}
   - component: {fileID: 2862748172572536887}
   - component: {fileID: 7035248258613534237}
-  - component: {fileID: 513624816}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -124,6 +123,8 @@ MonoBehaviour:
   rotationSpeed: 5
   jumpSpeed: 5
   downJumpSpeed: -50
+  characterController: {fileID: 733149551}
+  animator: {fileID: 1010594479903819748}
 --- !u!114 &733149548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f20260befeb9e94ca80fb3b3f4f6ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1010594479903819748}
 --- !u!114 &2862748172572536887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,74 +166,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyingWaveRadius: 5
---- !u!114 &513624816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3509202381624309033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boneShape: 1
-  drawBones: 1
-  drawTripods: 0
-  boneSize: 3.98
-  tripodSize: 1
-  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
-  m_Transforms:
-  - {fileID: 4354342406338581538}
-  - {fileID: 4354371416177412644}
-  - {fileID: 4353996618952463376}
-  - {fileID: 4354364788124489392}
-  - {fileID: 4355796350405264484}
-  - {fileID: 4355667581391959588}
-  - {fileID: 4354077208192120006}
-  - {fileID: 4354177379760834044}
-  - {fileID: 4356101835445992784}
-  - {fileID: 4354302943091374742}
-  - {fileID: 4354140036791195516}
-  - {fileID: 4355901298525108836}
-  - {fileID: 4355641391772264266}
-  - {fileID: 4354044486462733566}
-  - {fileID: 4354378595890863968}
-  - {fileID: 4355829290124426788}
-  - {fileID: 4354225690688689146}
-  - {fileID: 4354397140065428086}
-  - {fileID: 4355607118580561734}
-  - {fileID: 4356036985408410184}
-  - {fileID: 4355733069698322660}
-  - {fileID: 4354346224271435398}
-  - {fileID: 4354019285939166970}
-  - {fileID: 4354068076805861480}
-  - {fileID: 4354313550215540950}
-  - {fileID: 4355882651328134430}
-  - {fileID: 4355889211380886230}
-  - {fileID: 4354152218787747496}
-  - {fileID: 4355604349871142148}
-  - {fileID: 4355556537356837006}
-  - {fileID: 4356056396121318576}
-  - {fileID: 4354251824220804190}
-  - {fileID: 4353860429376012398}
-  - {fileID: 4355851756949552970}
-  - {fileID: 4356093373837183602}
-  - {fileID: 4354223583288008872}
-  - {fileID: 4355938617373451732}
-  - {fileID: 4354238457107898284}
-  - {fileID: 4354127343321890492}
-  - {fileID: 4354018356287470120}
-  - {fileID: 4355584127365411042}
-  - {fileID: 4355613192292352234}
-  - {fileID: 4355702127320268532}
-  - {fileID: 4353907705647259120}
-  - {fileID: 4356054393291423564}
-  - {fileID: 4356103892406567096}
-  - {fileID: 4355639475404973610}
-  - {fileID: 4356105977605592720}
-  - {fileID: 4354259786801903962}
 --- !u!1 &4357272335072202824
 GameObject:
   m_ObjectHideFlags: 0
